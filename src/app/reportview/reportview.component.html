@@ -1,0 +1,52 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <div class="card" style="width: 90%;" align="center">
+    <!--<img class="card-img-top" src="..." alt=" image cap">-->
+    <div class="card-body">
+      <h4 class="card-title">ExpenseReport<br> {{report.employee}}</h4>
+      <!--<p class="card-text"> asfd asdf asdf</p>-->
+      <a href="#" class="btn btn-primary">NewReport</a>
+        <a href="#" class="btn btn-primary">History</a>
+    </div>
+  </div>
+  <table *ngIf="report" class="table table-bordered" style="width: 90%;" >
+    <thead>
+    <tr>
+      <td>NR.</td>
+      <td>DATE</td>
+      <td>CONTENT</td>
+      <td>FIELD</td>
+      <td>ISSUER</td>
+      <td>PROJECT</td>
+      <td>CRED.CARD</td>
+      <td>SUM</td>
+      <td>CURRENCY</td>
+      <td>SUM(EUR)</td>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    <tr *ngFor="let document of report.documents">
+      <td>{{ document.docId }}</td>
+      <td>{{ document.date | date:'yMd'}}</td>
+      <td>{{ document.content }}</td>
+      <td>{{ document.field }}</td>
+      <td>{{ document.issuer }}</td>
+      <td>{{ document.project }}</td>
+      <td>{{ document.creditCard }}</td>
+      <td>{{ document.sum }}</td>
+      <td>{{ document.currency }}</td>
+      <td>{{ document.sumEur }}</td>
+
+    </tr>
+    </tbody>
+  </table>
+  <div class="card" style="width: 90%;" align="right">
+    <!--<img class="card-img-top" src="..." alt=" image cap">-->
+    <div class="card-body">
+      <h4 class="card-title">TOTAL SUM: {{report.expenseSum}}</h4>
+      <!--<p class="card-text"> asfd asdf asdf</p>-->
+    </div>
+
+</div>

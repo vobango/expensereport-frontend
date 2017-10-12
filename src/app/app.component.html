@@ -1,52 +1,71 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <div class="card" style="width: 90%;" align="center">
+  <div class="card block" >
     <!--<img class="card-img-top" src="..." alt=" image cap">-->
     <div class="card-body">
-      <h4 class="card-title">ExpenseReport<br> {{report.employee}}</h4>
-      <!--<p class="card-text"> asfd asdf asdf</p>-->
-      <a href="#" class="btn btn-primary">NewReport</a>
-        <a href="#" class="btn btn-primary">History</a>
+      <h4 class="card-title">ExpenseReport <br></h4>
+      <a href="#" class="btn btn-primary">NewReport</a><a href="#" class="btn btn-primary">History</a>
     </div>
   </div>
-  <table *ngIf="report" class="table table-bordered" style="width: 90%;" >
-    <thead>
-    <tr>
-      <td>NR.</td>
-      <td>DATE</td>
-      <td>CONTENT</td>
-      <td>FIELD</td>
-      <td>ISSUER</td>
-      <td>PROJECT</td>
-      <td>CRED.CARD</td>
-      <td>SUM</td>
-      <td>CURRENCY</td>
-      <td>SUM(EUR)</td>
-    </tr>
-    </thead>
-    <tbody>
 
 
-    <tr *ngFor="let document of report.documents">
-      <td>{{ document.docId }}</td>
-      <td>{{ document.date | date:'yMd'}}</td>
-      <td>{{ document.content }}</td>
-      <td>{{ document.field }}</td>
-      <td>{{ document.issuer }}</td>
-      <td>{{ document.project }}</td>
-      <td>{{ document.creditCard }}</td>
-      <td>{{ document.sum }}</td>
-      <td>{{ document.currency }}</td>
-      <td>{{ document.sumEur }}</td>
+  <div *ngIf="!name; else forminfo">
+    <form class="form-horizontal" [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+      <div class="form-container">
+        <div class="row columns">
+          <label>Name
+            <input type="text" formControlName="name">
+          </label>
+          <label>Start Date
+            <input type="date" formControlName="startDate">
+          </label>
+          <label>End Date
+            <input type="date" formControlName="endDate">
+          </label>
+          <label>Issuer
+            <input type="text" formControlName="issuer">
+          </label>
+          <label>Content
+            <input type="text" formControlName="content">
+          </label>
+          <label>Content
+            <input type="text" formControlName="content">
+          </label>
+          <label>Exp.Rep.
+            <input type="text" formControlName="content">
+          </label>
+          <label>SUM.
+            <input type="number" formControlName="content">
+          </label>
+          <label>Exp.Rep.
+            <input type="text" formControlName="content">
+          </label>
+          <label>Currency
+            <input type="text" formControlName="content">
+          </label>
+          <label>SUM EUR
+            <input type="text" formControlName="content">
+          </label>
+          <label>Cred.Card
+            <input type="text" formControlName="content">
+          </label>
+          <label>Description
+            <textarea formControlName="description"></textarea>
+          </label>
 
-    </tr>
-    </tbody>
-  </table>
-  <div class="card" style="width: 90%;" align="right">
-    <!--<img class="card-img-top" src="..." alt=" image cap">-->
-    <div class="card-body">
-      <h4 class="card-title">TOTAL SUM: {{report.expenseSum}}</h4>
-      <!--<p class="card-text"> asfd asdf asdf</p>-->
+
+          <input type="submit" class="button expanded" value="Submit Form" [disabled]="!rForm.valid">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #forminfo>
+    <div class="form-container">
+      <div class="row columns">
+        <h1>{{ name }}</h1>
+
+        <p>{{ description }}</p>
+      </div>
     </div>
-
-</div>
+  </ng-template>
