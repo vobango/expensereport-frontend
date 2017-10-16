@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./reports.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class ReportsComponent implements OnInit {
   title = 'app';
   reports: any[] = [];
 

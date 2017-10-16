@@ -1,13 +1,5 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <div class="card" style="width: 90%;" align="center">
-    <!--<img class="card-img-top" src="..." alt=" image cap">-->
-    <div class="card-body">
-      <h4 class="card-title">ExpenseReport <br> {{report.employee}}</h4>
-      <a href="#" class="btn btn-primary">NewReport</a><a href="#" class="btn btn-primary">History</a>
-    </div>
-  </div>
-  <table *ngIf="reports" class="table table-bordered" style="width: 90%;">
+
+  <table *ngIf="reports" class="table table-bordered" >
     <thead>
     <tr>
       <td>NR.</td>
@@ -27,11 +19,11 @@
       <td>{{ report.startDate | date:'yMd'}}</td>
       <td>{{ report.endDate | date:'yMd'}}</td>
       <td>{{ report.expenseSum}}</td>
-      <td><a href="#" class="btn btn-primary">ViewReport</a></td>
+      <td><a routerLink="/reportview" class="btn btn-primary">ViewReport</a></td>
 
     </tr>
 
     </tbody>
   </table>
 
-</div>
+

@@ -9,7 +9,7 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./reportview.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class ReportviewComponent implements OnInit {
   reportId = 1;
   title = 'app';
   report = {};

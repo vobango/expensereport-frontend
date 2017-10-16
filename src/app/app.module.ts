@@ -6,20 +6,30 @@ import {ExpenseComponent} from './expense/expense.component';
 import {GreetingComponent} from './greeting/greeting.component';
 import {AlertModule} from 'ngx-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {routes} from './app.router';
+import {ReportviewComponent} from './reportview/reportview.component';
+import {AddreportComponent} from './addreport/addreport.component';
+import {ReportsComponent} from './reportsview/reports.component';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExpenseComponent,
-    GreetingComponent
+    GreetingComponent,
+    ReportviewComponent,
+    AddreportComponent,
+    ReportsComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpModule,
     BrowserModule,
     HttpClientModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    routes
   ],
   providers: [],
   bootstrap: [AppComponent]
