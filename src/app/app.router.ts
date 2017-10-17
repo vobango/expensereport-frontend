@@ -12,6 +12,8 @@ export const router: Routes = [
   {path: 'reportsview', component: ReportsComponent},
   {path: 'addreport', component: AddreportComponent},
   {path: 'reportview', component: ReportviewComponent},
+  {path: 'deletereport', component: ReportviewComponent},
+  {path: 'reportview/:id', component: ReportviewComponent}
 ];
   export const routes: ModuleWithProviders = RouterModule.forRoot(router);
 

@@ -12,6 +12,7 @@ import {AddreportComponent} from './addreport/addreport.component';
 import {ReportsComponent} from './reportsview/reports.component';
 import {HttpModule} from '@angular/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,

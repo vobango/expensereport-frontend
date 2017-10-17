@@ -1,6 +1,6 @@
 <div *ngIf="!name; else forminfo">
-  <form class="form-horizontal" [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
-    <div class="form-container">
+  <form class="form-horizontal" [formGroup]="rForm" (ngSubmit)="onSubmit(rForm.value)">
+    <div class="form-group">
       <div class="row columns">
         <label>Name
           <input type="text" formControlName="name">
@@ -30,26 +30,25 @@
           <input type="text" formControlName="currency">
         </label>
         <label>SUM EUR
-          <input type="text" formControlName="sumEur">
+          <input type="number" formControlName="sumEur">
         </label>
-        <label>Credit Card
-          <input [(ngModel)]="creditCard" type="checkbox"/>
+        <label>SUM EUR
+          <input type="checkbox" formControlName="creditCard">
         </label>
-        <!--<label>Description-->
-        <!--<textarea formControlName="description"></textarea>-->
-        <!--</label>-->
-
+        <input type="submit" class="button" value="+ NEW expense row" [disabled]="!rForm.valid">
       </div>
     </div>
   </form>
 </div>
 
-<div class="card" align="right">
-  <div class="card-body">
-    <input type="submit" class="button" value="+ NEW expense row" [disabled]="!rForm.valid">
 
-    <input type="submit" class="button expanded" value="Submit Form!" [disabled]="!rForm.valid">
-  </div>
+<!--<div class="card" align="right">-->
+  <!--<div class="card-body">-->
+    <!--<input type="submit" class="button" value="+ NEW expense row" [disabled]="!rForm.valid">-->
+
+
+    <!--<input type="submit" class="button expanded" value="Submit Form!" [disabled]="!rForm.valid">-->
+      <!--</div>-->
 
   <ng-template #forminfo>
     <div class="form-container">
@@ -60,4 +59,4 @@
       </div>
     </div>
   </ng-template>
-</div>
+

@@ -19,7 +19,9 @@
       <td>{{ report.startDate | date:'yMd'}}</td>
       <td>{{ report.endDate | date:'yMd'}}</td>
       <td>{{ report.expenseSum}}</td>
-      <td><a routerLink="/reportview" class="btn btn-primary">ViewReport</a></td>
+      <td><a [routerLink]="['/reportview', report.reportId]" class="btn btn-primary">ViewReport</a>
+        <a routerLink="/editreport" class="btn btn-primary">EditReport</a>
+        <a [routerLink]="['/deletereport', report.reportId]" class="btn btn-danger">Del.Report</a></td>
 
     </tr>
 
