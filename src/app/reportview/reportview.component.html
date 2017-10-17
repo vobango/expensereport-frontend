@@ -34,16 +34,16 @@
 
 
   <tr *ngFor="let document of report.documents">
-    <td>{{ document.docId }}</td>
-    <td>{{ document.date | date:'yMd'}}</td>
-    <td>{{ document.content }}</td>
-    <td>{{ document.field }}</td>
-    <td>{{ document.issuer }}</td>
-    <td>{{ document.project }}</td>
-    <td> <input type="checkbox" [checked]="document.creditCard" disabled> </td>
-    <td>{{ document.sum }}</td>
-    <td>{{ document.currency }}</td>
-    <td style="font-weight: 600">{{ document.sumEur }}</td>
+    <td style="font-weight: bold">{{ document.docId }}</td>
+    <td style="text-align: center">{{ document.date | date:'yMd'}}</td>
+    <td style="text-align: center">{{ document.content }}</td>
+    <td style="text-align: center">{{ document.field }}</td>
+    <td style="text-align: center">{{ document.issuer }}</td>
+    <td style="text-align: center">{{ document.project }}</td>
+    <td style="text-align: center"> <input type="checkbox" [checked]="document.creditCard" disabled> </td>
+    <td style="text-align: center">{{ document.sum }}</td>
+    <td style="text-align: center">{{ document.currency }}</td>
+    <td style="font-weight: 600; text-align: center">{{ document.sumEur }}</td>
 
   </tr>
   </tbody>
