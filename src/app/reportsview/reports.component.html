@@ -2,12 +2,12 @@
   <table *ngIf="reports" class="table table-bordered" >
     <thead>
     <tr>
-      <td>NR.</td>
-      <td>NAME</td>
-      <td>StartDATE</td>
-      <td>EndDATE</td>
-      <td>TOTAL SUM</td>
-      <td></td>
+      <td>Nr</td>
+      <td>Name</td>
+      <td>Start date</td>
+      <td>End date</td>
+      <td>Total sum</td>
+      <td style="text-align: center">Manage</td>
 
     </tr>
     </thead>
@@ -18,10 +18,12 @@
       <td>{{ report.employee}}</td>
       <td>{{ report.startDate | date:'yMd'}}</td>
       <td>{{ report.endDate | date:'yMd'}}</td>
-      <td>{{ report.expenseSum}}</td>
-      <td><a [routerLink]="['/reportview', report.reportId]" class="btn btn-primary">ViewReport</a>
-        <a routerLink="/editreport" class="btn btn-primary">EditReport</a>
-        <a [routerLink]="['/deletereport', report.reportId]" class="btn btn-danger">Del.Report</a></td>
+      <td>{{ report.expenseSum}} €</td>
+      <td>
+        <a [routerLink]="['/reportview', report.reportId]" class="btn btn-info">View</a>
+        <a routerLink="/editreport" class="btn btn-primary">Edit</a>
+        <a [routerLink]="['/deletereport', report.reportId]" class="btn btn-danger">Delete</a>
+      </td>
 
     </tr>
 

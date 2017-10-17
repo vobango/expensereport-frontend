@@ -15,7 +15,7 @@ export class ReportsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:8080/reports').subscribe(data => {
+    this.http.get<any[]>('http://192.168.115.76/api/reports').subscribe(data => {
 
       this.reports = data;
       console.log(data);
