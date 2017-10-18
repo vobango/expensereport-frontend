@@ -7,7 +7,7 @@ import {ReportsComponent} from './reportsview/reports.component';
 import {ReportviewComponent} from './reportview/reportview.component';
 
 export const router: Routes = [
-  {path: '', redirectTo: 'addreport', pathMatch: 'full'},
+  {path: '', redirectTo: 'reportsview', pathMatch: 'full'},
   {path: 'menu', component: AppComponent},
   {path: 'reportsview', component: ReportsComponent},
   {path: 'addreport', component: AddreportComponent},
