@@ -26,16 +26,13 @@ export class ReportviewComponent implements OnInit {
       // In a real app: dispatch action to load the details here.
     });
     this.http.get<any>('http://192.168.115.76/api/reports/' + this.reportId).subscribe(data => {
-
       this.report = data;
-      console.log(data);
     });
 
   }
 
   OnDeleteReport(): void {
     this.http.delete<any>('http://192.168.115.76/api/reports/' + this.reportId).subscribe(data => {
-
       this.report = data;
       console.log(data);
 

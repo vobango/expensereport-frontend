@@ -6,6 +6,7 @@
     <td style="text-align: center">Start date</td>
     <td style="text-align: center">End date</td>
     <td style="text-align: center">Total sum</td>
+    <td style="text-align: center">Status</td>
     <td style="text-align: center">Manage</td>
 
   </tr>
@@ -18,6 +19,7 @@
     <td style="text-align: center">{{ report.startDate | date:'yMd'}}</td>
     <td style="text-align: center">{{ report.endDate | date:'yMd'}}</td>
     <td style="text-align: center">{{ report.expenseSum}} €</td>
+    <td style="text-align: center">{{ report.status}}</td>
     <td style="text-align: center">
       <a [routerLink]="['/reportview', report.reportId]" class="btn btn-info">View</a>
       <a routerLink="/editreport" class="btn btn-primary">Edit</a>

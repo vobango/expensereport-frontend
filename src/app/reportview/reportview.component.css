@@ -5,17 +5,35 @@
   align-items:center;
 }
 
-.card-body {
-  border-bottom: 3px solid rgba(0,0,0,0.3);
-}
-
-thead {
-  border-bottom: 2px solid rgba(0,0,0,0.2);
-}
-
 .report-end {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  flex-grow: 1;
+  margin-left: 30px;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+//padding-left: 50px;
+  padding-right: 50px;
+}
+
+label {
+  color: rgb(100,100,100);
+}
+
+.status {
+  font-weight: bold;
+}
+
+a {
+  margin: 2px;
+}
+
+thead {
+  color: rgb(130,130,130);
 }
