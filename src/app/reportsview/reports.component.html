@@ -23,7 +23,8 @@
     <td style="text-align: center">
       <a [routerLink]="['/reportview', report.reportId]" class="btn btn-info">View</a>
       <a routerLink="/editreport" class="btn btn-primary">Edit</a>
-      <a [routerLink]="['/deletereport', report.reportId]" class="btn btn-danger">Delete</a>
+      <a (click)="OnDeleteReport(report.reportId)" class="btn btn-danger">Delete</a>
+      <!--<a [routerLink]="['/deletereport', report.reportId]" class="btn btn-danger">Delete</a>-->
     </td>
 
   </tr>

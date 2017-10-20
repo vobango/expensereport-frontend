@@ -1,10 +1,10 @@
 <div class="container">
   <div class="report-header">
-    <h2>Report nr. {{report.reportId}}</h2>
+    <h2 >Report nr. {{report.reportId}}</h2>
     <div class="report-end">
       <a routerLink="/reportsview" class="btn btn-info"><< Back</a>
-      <a routerLink="/editreport" class="btn btn-primary">Edit</a>
-      <a [routerLink]="['/deletereport', report.reportId]" class="btn btn-danger">Delete</a>
+      <a routerLink='/editreport' class="btn btn-primary">Edit</a>
+      <a (click)="OnDeleteReport()" class="btn btn-danger" >Delete</a>
     </div>
   </div>
   <hr>

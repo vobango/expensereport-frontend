@@ -10,6 +10,7 @@ import {HttpClient} from '@angular/common/http';
 export class ReportsComponent implements OnInit {
   title = 'app';
   reports: any[] = [];
+  report = {};
 
   constructor(private http: HttpClient) {
   }
@@ -20,7 +21,16 @@ export class ReportsComponent implements OnInit {
     });
 
   }
+
+  OnDeleteReport(reportId): void {
+    this.http.delete<any>('http://192.168.115.76/api/reports/' + reportId).subscribe(data => {
+      this.ngOnInit();
+
+    });
+  }
+
 }
+
 interface ItemsResponse {
   results: any[];
 }
