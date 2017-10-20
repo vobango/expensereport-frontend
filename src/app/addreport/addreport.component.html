@@ -1,62 +1,110 @@
-<div *ngIf="!name; else forminfo">
-  <form class="form-horizontal" [formGroup]="rForm" (ngSubmit)="onSubmit(rForm.value)">
-    <div class="form-group">
-      <div class="row columns">
-        <label>Name
-          <input type="text" formControlName="name">
-        </label>
-        <label>Start Date
-          <input type="date" formControlName="startDate">
-        </label>
-        <label>End Date
-          <input type="date" formControlName="endDate">
-        </label>
-        <label>Issuer
-          <input type="text" formControlName="issuer">
-        </label>
-        <label>Content
-          <input type="text" formControlName="content">
-        </label>
-        <label>Field
-          <input type="text" formControlName="field">
-        </label>
-        <label>Project
-          <input type="text" formControlName="project">
-        </label>
-        <label>SUM.
-          <input type="number" formControlName="sum">
-        </label>
-        <label>Currency
-          <input type="text" formControlName="currency">
-        </label>
-        <label>SUM EUR
-          <input type="number" formControlName="sumEur">
-        </label>
-        <label>SUM EUR
-          <input type="checkbox" formControlName="creditCard">
-        </label>
-        <input type="submit" class="button" value="+ NEW expense row" [disabled]="!rForm.valid">
-      </div>
-    </div>
-  </form>
+<div class="container">
+  <h2>Create new report</h2>
+  <hr>
+    <!-- Beginning of form -->
+      <form [formGroup]="rForm" novalidate (ngSubmit)="onSubmit(rForm)">
+
+        <!-- Form header (name, report period and sums) -->
+        <div class="form-group">
+            <div class="form-header">
+
+              <!-- Name and other input fields -->
+              <div>
+                <label>Name</label>
+                <input type="text" formControlName="employee">
+
+                <label>Start date</label>
+                <input type="date" formControlName="startDate">
+
+                <label>End date</label>
+                <input type="date" formControlName="endDate">
+              </div>
+
+              <!-- Expenses and form submit button -->
+              <div>
+                <h5 class="card-title">Total expenses: <b>{{this.expenseSum}} €</b></h5>
+                <h5 class="card-title">Paid with credit card: <b>{{creditSum}} €</b></h5>
+                <hr>
+                <h3 class="card-title">Amount to pay: <b>{{totalSum}} €</b></h3>
+                <input type="submit" class="button expanded" value="Submit Report" [disabled]="!rForm.valid">
+              </div>
+            </div>
+          <hr>
+        </div>
+
+        <!-- Report documents -->
+        <div formArrayName="documents">
+          <div *ngFor="let document of rForm.controls['documents'].controls; let i = index" class="card" >
+
+            <!-- Document header -->
+            <div class="card-header">
+              <h3>Report document {{i+1}}</h3>
+              <a class="btn btn-warning" *ngIf="rForm.controls['documents'].controls.length > 1" (click)="removeDocument(i)">Remove</a>
+            </div>
+
+            <!-- Document fields -->
+            <div class="card-body" [formGroupName]="i">
+              <div class="row">
+
+                <div class="doc-fields">
+
+                  <!-- Document date -->
+                  <label>Date</label>
+                  <input type="date" formControlName="date">
+
+                  <!-- issuer -->
+                  <label>Issuer</label>
+                  <input type="text" formControlName="issuer">
+
+                  <!-- content -->
+                  <label>Content</label>
+                  <input type="text" formControlName="content">
+
+                  <!-- employee's field -->
+                  <label>Field</label>
+                  <input type="text" formControlName="field">
+
+                  <!-- related project -->
+                  <label>Project</label>
+                  <input type="text" formControlName="project">
+                </div>
+
+                <div class="doc-fields">
+
+                  <!-- document sum -->
+                  <label>Sum</label>
+                  <input type="number" formControlName="sum" (ngModelChange)="newSum($event, i)">
+
+                  <!-- currency of sum -->
+                  <label>Currency</label>
+                  <select formControlName="currency" (ngModelChange)="newCurrency($event ,i)">
+                    <option *ngFor="let cur of currencies" [ngValue]="cur.name">{{cur.name}}</option>
+                  </select>
+
+                  <!-- paid with credit card (y/n) -->
+                  <label>Credit card</label>
+                  <input type="checkbox" formControlName="creditCard" (ngModelChange)="newCredit($event, i)">
+
+                  <!-- For displaying sum in EUR in real time -->
+                  <h5 class="card-title" align="right">Total sum: <b>{{this.rForm.controls["documents"].value[i].sumEur}} €</b></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column;" >
+          <!-- Link for adding report docs -->
+          <a (click)="addDocument()" class="btn btn-info" style="margin-bottom: 10px;">Add another document +</a>
+
+          <!-- Duplicate submit button -->
+          <input type="submit" class="button" value="Submit Report" [disabled]="!rForm.valid">
+        </div>
+      </form>
+
+  <!-- Visualize form data in json format for testing purposes -->
+  <hr>
+  <pre>
+    {{rForm.value | json}}
+  </pre>
+
 </div>
-
-
-<!--<div class="card" align="right">-->
-  <!--<div class="card-body">-->
-    <!--<input type="submit" class="button" value="+ NEW expense row" [disabled]="!rForm.valid">-->
-
-
-    <!--<input type="submit" class="button expanded" value="Submit Form!" [disabled]="!rForm.valid">-->
-      <!--</div>-->
-
-  <ng-template #forminfo>
-    <div class="form-container">
-      <div class="row columns">
-        <h1>{{ name }}</h1>
-
-        <!--<p>{{ description }}</p>-->
-      </div>
-    </div>
-  </ng-template>
-
