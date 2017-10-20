@@ -21,11 +21,6 @@ export class AddreportComponent implements OnInit{
 
   constructor(private _fb: FormBuilder, private _http:HttpClient) { }
 
-  expenseSum: number = 0;
-  creditSum: number = 0;
-  totalSum: number = 0;
-  sum: number = 0;
-  rate: number = 1;
   currencies = [
     {name: "EEK", num:0.06},
     {name: "EUR", num:1.00},
@@ -44,6 +39,9 @@ export class AddreportComponent implements OnInit{
       employee: ['', [Validators.required]],
       startDate: [''],
       endDate: [''],
+      expenseSum: [0],
+      creditSum: [0],
+      totalSum: [0],
       documents: this._fb.array([
         this.initDocument(),
       ])
@@ -57,10 +55,11 @@ export class AddreportComponent implements OnInit{
       content: ['', [Validators.required]],
       field: ['', [Validators.required]],
       project: ['', [Validators.required]],
-      sum: ['', [Validators.required]],
+      sum: [0, [Validators.required]],
       currency: ['EUR'],
       creditCard: [false],
-      sumEur: [0]
+      sumEur: [0],
+      rate: [1]
     })
   }
 
@@ -74,24 +73,30 @@ export class AddreportComponent implements OnInit{
   removeDocument(i: number) {
     const control = <FormArray>this.rForm.controls["documents"];
     control.removeAt(i);
+    this.update(i);
   }
 
+  //Update document sum
   newSum(event, i) {
-
     let doc = this.rForm.controls["documents"].value[i];
     doc.sum = event;
-    console.log("changed sum", doc);
     this.update(i);
   }
 
+  //Update document currency (TODO: doc.rate not working properly)
   newCurrency(event, i) {
-    this.rate = this.currencies.filter(function(cur) {
+    console.log(event);
+    let doc = this.rForm.controls["documents"].value[i];
+    doc.rate = this.currencies.filter(function(cur) {
       return cur.name === event;
     })[0].num;
-    console.log("changed currency", i);
+    doc.currency = this.currencies.filter(function(cur) {
+      return cur.name === event;
+    })[0].name;
     this.update(i);
   }
 
+  //Update document credit card use
   newCredit(event, i) {
     let doc = this.rForm.controls["documents"].value[i];
     doc.creditCard = event;
@@ -99,22 +104,23 @@ export class AddreportComponent implements OnInit{
     this.update(i);
   }
 
-  //Update sums when document sum, currency or creditcard values are changed
+  //Update report sums when document sum, currency or creditcard values are changed
   update(i) {
-    console.log("Starting update on", this);
-    let doc = this.rForm.controls["documents"].value[i];
-    doc.sumEur = +((doc.sum * this.rate).toFixed(2));
-    this.expenseSum = 0;
-    this.creditSum = 0;
-    this.totalSum = 0;
-    for (let document of this.rForm.controls["documents"].value) {
-      this.expenseSum += document.sumEur;
+    let form = this.rForm.controls;
+    let expense = form["expenseSum"];
+    expense.setValue(0);
+    let credit = form["creditSum"];
+      credit.setValue(0);
+    let total = form["totalSum"];
+      total.setValue(0);
+    for (let document of form["documents"].value) {
+      document.sumEur = +((document.sum * document.rate).toFixed(2));
+      expense.setValue(expense.value + document.sumEur);
       if(document.creditCard) {
-        this.creditSum += document.sumEur;
+        credit.setValue(credit.value + document.sumEur) ;
       }
-      this.totalSum = +((this.expenseSum - this.creditSum).toFixed(2));
+      total.setValue( expense.value - credit.value);
     }
-    console.log("Updated", doc);
   }
 
   onSubmit(data) {

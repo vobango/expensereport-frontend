@@ -22,10 +22,10 @@
 
               <!-- Expenses and form submit button -->
               <div>
-                <h5 class="card-title">Total expenses: <b>{{this.expenseSum}} €</b></h5>
-                <h5 class="card-title">Paid with credit card: <b>{{creditSum}} €</b></h5>
+                <h5 class="card-title">Total expenses: <b>{{rForm.controls['expenseSum'].value}} €</b></h5>
+                <h5 class="card-title">Paid with credit card: <b>{{rForm.controls['creditSum'].value}} €</b></h5>
                 <hr>
-                <h3 class="card-title">Amount to pay: <b>{{totalSum}} €</b></h3>
+                <h3 class="card-title">Amount to pay: <b>{{rForm.controls['totalSum'].value}} €</b></h3>
                 <input type="submit" class="button expanded" value="Submit Report" [disabled]="!rForm.valid">
               </div>
             </div>
@@ -78,7 +78,7 @@
                   <!-- currency of sum -->
                   <label>Currency</label>
                   <select formControlName="currency" (ngModelChange)="newCurrency($event ,i)">
-                    <option *ngFor="let cur of currencies" [ngValue]="cur.name">{{cur.name}}</option>
+                    <option *ngFor="let cur of currencies" [ngValue]="cur.name">{{cur.name}} ({{cur.num}})</option>
                   </select>
 
                   <!-- paid with credit card (y/n) -->
@@ -86,7 +86,7 @@
                   <input type="checkbox" formControlName="creditCard" (ngModelChange)="newCredit($event, i)">
 
                   <!-- For displaying sum in EUR in real time -->
-                  <h5 class="card-title" align="right">Total sum: <b>{{this.rForm.controls["documents"].value[i].sumEur}} €</b></h5>
+                  <!--<h5 class="card-title" align="right">Total sum: <b>{{this.rForm.controls["documents"].value[i].sumEur}} €</b></h5>-->
                 </div>
               </div>
             </div>
