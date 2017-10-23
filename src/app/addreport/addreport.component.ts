@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -85,7 +85,7 @@ export class AddreportComponent implements OnInit {
     doc.currency = this.currencies.filter(function(cur) {
       return cur.name === event;
     })[0].name;
-    this.update(i)
+    this.update(i);
   }
 
   // Update document credit card use
@@ -119,7 +119,7 @@ export class AddreportComponent implements OnInit {
 
   // Submit form via POST request
   onSubmit(data) {
-    let body = data.value;
+    const body = data.value;
     this._http
       .post('http://192.168.115.76/api/reports', body)
       .subscribe(r => {
