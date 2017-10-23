@@ -35,7 +35,7 @@ export class ReportviewComponent implements OnInit {
   OnDeleteReport(): void {
     this.sub = this.route.params.subscribe(params => {
       this.reportId = +params['id']; // (+) converts string 'id' to a number
-       });
+    });
     this.http.delete<any>('http://192.168.115.76/api/reports/' + this.reportId).subscribe(data => {
       this.report = data;
       console.log(data);

@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { OpaqueToken } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +9,6 @@ import { OpaqueToken } from '@angular/core';
 
 export class AppComponent implements OnInit {
   rForm: FormGroup;
-  post: any;                     // A property for our submitted form
-  description = '';
   name = '';
 
   constructor(private fb: FormBuilder) {
@@ -25,11 +21,5 @@ export class AppComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-
-  }
-}
-
-interface ItemsResponse {
-  results: any[];
+  ngOnInit(): void {  }
 }

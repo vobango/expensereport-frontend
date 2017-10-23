@@ -1,33 +1,28 @@
 <table *ngIf="reports" class="table table-hover" >
   <thead>
-  <tr>
-    <td style="text-align: center">Nr</td>
-    <td style="text-align: center">Name</td>
-    <td style="text-align: center">Start date</td>
-    <td style="text-align: center">End date</td>
-    <td style="text-align: center">Total sum</td>
-    <td style="text-align: center">Status</td>
-    <td style="text-align: center">Manage</td>
-
-  </tr>
+    <tr>
+      <td style="text-align: center">Nr</td>
+      <td style="text-align: center">Name</td>
+      <td style="text-align: center">Start date</td>
+      <td style="text-align: center">End date</td>
+      <td style="text-align: center">Total sum</td>
+      <td style="text-align: center">Status</td>
+      <td style="text-align: center">Manage</td>
+    </tr>
   </thead>
   <tbody>
-
-  <tr *ngFor="let report of reports">
-    <td style="text-align: center"><b>{{ report.reportId}}</b></td>
-    <td style="text-align: center">{{ report.employee}}</td>
-    <td style="text-align: center">{{ report.startDate | date:'yMd'}}</td>
-    <td style="text-align: center">{{ report.endDate | date:'yMd'}}</td>
-    <td style="text-align: center">{{ report.expenseSum}} €</td>
-    <td style="text-align: center">{{ report.status}}</td>
-    <td style="text-align: center">
-      <a [routerLink]="['/reportview', report.reportId]" class="btn btn-info">View</a>
-      <a routerLink="/editreport" class="btn btn-primary">Edit</a>
-      <a (click)="OnDeleteReport(report.reportId)" class="btn btn-danger">Delete</a>
-      <!--<a [routerLink]="['/deletereport', report.reportId]" class="btn btn-danger">Delete</a>-->
-    </td>
-
-  </tr>
-
+    <tr *ngFor="let report of reports">
+      <td style="text-align: center"><b>{{ report.reportId}}</b></td>
+      <td style="text-align: center">{{ report.employee}}</td>
+      <td style="text-align: center">{{ report.startDate | date:'yMd'}}</td>
+      <td style="text-align: center">{{ report.endDate | date:'yMd'}}</td>
+      <td style="text-align: center">{{ report.expenseSum}} €</td>
+      <td style="text-align: center">{{ report.status}}</td>
+      <td style="text-align: center">
+        <a [routerLink]="['/reportview', report.reportId]" class="btn btn-info">View</a>
+        <a routerLink="/editreport" class="btn btn-primary">Edit</a>
+        <a (click)="OnDeleteReport(report.reportId)" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
   </tbody>
 </table>
