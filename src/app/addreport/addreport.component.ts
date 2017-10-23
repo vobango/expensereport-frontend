@@ -124,19 +124,15 @@ export class AddreportComponent implements OnInit{
   }
 
   onSubmit(data) {
-    console.log('Form submitted:', JSON.stringify(data.value));
+    let body = data.value;
+    console.log('Form submitted:', body);
 
-    /*  //Returns 415 ERROR
     this._http
-      .post('http://localhost:8080/reports', JSON.stringify( data.value ))
-      .subscribe();*/
+      .post('http://192.168.115.76/api/reports', body)
+      .subscribe(r => {
+        console.log('Add report OK');
+      });
 
-    /*   //Returns 403 ERROR
-    this._http
-      .post('http://localhost:8080/reports', JSON.stringify( data.value ), {
-        headers: new HttpHeaders().set('Content-Type', 'application/json')
-      })
-      .subscribe();*/
   }
 
 }
@@ -144,5 +140,3 @@ export class AddreportComponent implements OnInit{
 interface ItemsResponse {
   results: any[];
 }
-
-
