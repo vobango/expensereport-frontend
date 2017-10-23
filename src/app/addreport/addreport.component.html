@@ -84,9 +84,6 @@
                   <!-- paid with credit card (y/n) -->
                   <label>Credit card</label>
                   <input type="checkbox" formControlName="creditCard" (ngModelChange)="newCredit($event, i)">
-
-                  <!-- For displaying sum in EUR in real time -->
-                  <!--<h5 class="card-title" align="right">Total sum: <b>{{this.rForm.controls["documents"].value[i].sumEur}} €</b></h5>-->
                 </div>
               </div>
             </div>
@@ -100,11 +97,4 @@
           <input type="submit" class="button" value="Submit Report" [disabled]="!rForm.valid">
         </div>
       </form>
-
-  <!-- Visualize form data in json format for testing purposes -->
-  <hr>
-  <pre>
-    {{rForm.value | json}}
-  </pre>
-
 </div>

@@ -1,12 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {DatePipe} from '@angular/common';
-import {NgIf} from '@angular/common';
-import {FormsModule, FormBuilder, FormGroup, Validators, FormArray} from '@angular/forms';
-import {Report, ExpenseDoc} from "../model/models";
+import {HttpClient} from '@angular/common/http';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -15,30 +9,30 @@ import {Report, ExpenseDoc} from "../model/models";
   styleUrls: ['./addreport.component.css']
 })
 
-export class AddreportComponent implements OnInit{
+export class AddreportComponent implements OnInit {
 
   public rForm: FormGroup;
 
-  constructor(private _fb: FormBuilder, private _http:HttpClient) { }
+  constructor(private _fb: FormBuilder, private _http: HttpClient) { }
 
   currencies = [
-    {name: "EEK", num:0.06},
-    {name: "EUR", num:1.00},
-    {name: "SEK", num:0.11},
-    {name: "USD", num:0.89},
-    {name: "LVL", num:1.00},
-    {name: "TRY", num:0.31},
-    {name: "LTL", num:1.00},
-    {name: "CHF", num:0.92},
-    {name: "RUB", num:0.01},
-    {name: "GBP", num:1.27}
+    {name: 'EEK', num: 0.06},
+    {name: 'EUR', num: 1.00},
+    {name: 'SEK', num: 0.11},
+    {name: 'USD', num: 0.89},
+    {name: 'LVL', num: 1.00},
+    {name: 'TRY', num: 0.31},
+    {name: 'LTL', num: 1.00},
+    {name: 'CHF', num: 0.92},
+    {name: 'RUB', num: 0.01},
+    {name: 'GBP', num: 1.27}
   ];
 
   ngOnInit() {
     this.rForm = this._fb.group({
       employee: ['', [Validators.required]],
-      startDate: [''],
-      endDate: [''],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
       expenseSum: [0],
       creditSum: [0],
       totalSum: [0],
@@ -50,7 +44,7 @@ export class AddreportComponent implements OnInit{
 
   initDocument() {
     return this._fb.group({
-      date: [''],
+      date: ['', [Validators.required]],
       issuer: ['', [Validators.required]],
       content: ['', [Validators.required]],
       field: ['', [Validators.required]],
@@ -60,89 +54,77 @@ export class AddreportComponent implements OnInit{
       creditCard: [false],
       sumEur: [0],
       rate: [1]
-    })
+    });
   }
 
-  //Add new expense document to report
+  // Add new expense document to report
   addDocument() {
-    const control = <FormArray>this.rForm.controls["documents"];
+    const control = <FormArray>this.rForm.controls['documents'];
     control.push(this.initDocument());
   }
 
-  //Remove selected document from report
+  // Remove selected document from report
   removeDocument(i: number) {
-    const control = <FormArray>this.rForm.controls["documents"];
+    const control = <FormArray>this.rForm.controls['documents'];
     control.removeAt(i);
     this.update(i);
   }
 
-  //Update document sum
+  // Update document sum
   newSum(event, i) {
-    let doc = this.rForm.controls["documents"].value[i];
+    const doc = this.rForm.controls['documents'].value[i];
     doc.sum = event;
+    doc.sumEur = +((doc.sum * doc.rate).toFixed(2));
     this.update(i);
   }
 
-  //Update document currency (TODO: doc.rate not working properly)
   newCurrency(event, i) {
-    console.log(event);
-    let doc = this.rForm.controls["documents"].value[i];
-    doc.rate = this.currencies.filter(function(cur) {
-      return cur.name === event;
-    })[0].num;
+    const doc = this.rForm.controls['documents'].value[i];
     doc.currency = this.currencies.filter(function(cur) {
       return cur.name === event;
     })[0].name;
-    this.update(i);
+    this.update(i)
   }
 
-  //Update document credit card use
+  // Update document credit card use
   newCredit(event, i) {
-    let doc = this.rForm.controls["documents"].value[i];
+    const doc = this.rForm.controls['documents'].value[i];
     doc.creditCard = event;
-    console.log("changed credit card", i);
     this.update(i);
   }
 
-  //Update report sums when document sum, currency or creditcard values are changed
+  // Update report sums when document sum, currency or creditcard values are changed
   update(i) {
-    let form = this.rForm.controls;
-    let expense = form["expenseSum"];
+    const form = this.rForm.controls;
+    const expense = form['expenseSum'];
     expense.setValue(0);
-    let credit = form["creditSum"];
+    const credit = form['creditSum'];
       credit.setValue(0);
-    let total = form["totalSum"];
+    const total = form['totalSum'];
       total.setValue(0);
-    for (let document of form["documents"].value) {
+    for (const document of form['documents'].value) {
+      document.rate = this.currencies.filter(function(cur) {
+        return cur.name === document.currency;
+      })[0].num;
       document.sumEur = +((document.sum * document.rate).toFixed(2));
-      expense.setValue(expense.value + document.sumEur);
-      if(document.creditCard) {
-        credit.setValue(credit.value + document.sumEur) ;
+      expense.setValue(+((expense.value + document.sumEur).toFixed(2)));
+      if (document.creditCard) {
+        credit.setValue(+((credit.value + document.sumEur).toFixed(2)));
       }
-      total.setValue( expense.value - credit.value);
+      total.setValue( +((expense.value - credit.value).toFixed(2)));
     }
   }
 
   onSubmit(data) {
-    console.log('Form submitted:', JSON.stringify(data.value));
+    let body = data.value;
+    console.log('Form submitted:', body);
 
-    /*  //Returns 415 ERROR
     this._http
-      .post('http://localhost:8080/reports', JSON.stringify( data.value ))
-      .subscribe();*/
+      .post('http://192.168.115.76/api/reports', body)
+      .subscribe(r => {
+        console.log('Add report OK');
+      });
 
-    /*   //Returns 403 ERROR
-    this._http
-      .post('http://localhost:8080/reports', JSON.stringify( data.value ), {
-        headers: new HttpHeaders().set('Content-Type', 'application/json')
-      })
-      .subscribe();*/
   }
 
 }
-
-interface ItemsResponse {
-  results: any[];
-}
-
-
