@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
-import {DatePipe} from '@angular/common';
-import {NgIf} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,32 +15,27 @@ export class ReportviewComponent implements OnInit {
   title = 'app';
   report = {};
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
+  constructor(private _http: HttpClient, private _route: ActivatedRoute, private _router: Router) {
   }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params => {
+    this.sub = this._route.params.subscribe(params => {
       this.reportId = +params['id']; // (+) converts string 'id' to a number
-
-      // In a real app: dispatch action to load the details here.
     });
-    this.http.get<any>('http://192.168.115.76/api/reports/' + this.reportId).subscribe(data => {
+    this._http.get<any>('http://192.168.115.76/api/reports/' + this.reportId).subscribe(data => {
       this.report = data;
     });
 
   }
 
+  // Delete report
   OnDeleteReport(): void {
-    this.sub = this.route.params.subscribe(params => {
+    this.sub = this._route.params.subscribe(params => {
       this.reportId = +params['id']; // (+) converts string 'id' to a number
     });
-    this.http.delete<any>('http://192.168.115.76/api/reports/' + this.reportId).subscribe(data => {
+    this._http.delete<any>('http://192.168.115.76/api/reports/' + this.reportId).subscribe(data => {
       this.report = data;
-      console.log(data);
     });
-   }
-}
-
-  interface   ItemsResponse {
-  results: any[];
+    this._router.navigate(['/reportsview']);
+  }
 }

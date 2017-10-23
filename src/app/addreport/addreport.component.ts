@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -13,7 +14,7 @@ export class AddreportComponent implements OnInit {
 
   public rForm: FormGroup;
 
-  constructor(private _fb: FormBuilder, private _http: HttpClient) { }
+  constructor(private _fb: FormBuilder, private _http: HttpClient, private _router: Router) { }
 
   currencies = [
     {name: 'EEK', num: 0.06},
@@ -116,16 +117,14 @@ export class AddreportComponent implements OnInit {
     }
   }
 
+  // Submit form via POST request
   onSubmit(data) {
     let body = data.value;
-    console.log('Form submitted:', body);
-
     this._http
       .post('http://192.168.115.76/api/reports', body)
       .subscribe(r => {
         console.log('Add report OK');
       });
-
+    this._router.navigate(['/reportsview']);
   }
-
 }

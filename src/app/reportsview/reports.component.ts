@@ -12,20 +12,18 @@ export class ReportsComponent implements OnInit {
   reports: any[] = [];
   report = {};
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private _http: HttpClient) {  }
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://192.168.115.76/api/reports').subscribe(data => {
+    this._http.get<any[]>('http://192.168.115.76/api/reports').subscribe(data => {
       this.reports = data;
     });
-
   }
 
+  // Delete report
   OnDeleteReport(reportId): void {
-    this.http.delete<any>('http://192.168.115.76/api/reports/' + reportId).subscribe(data => {
+    this._http.delete<any>('http://192.168.115.76/api/reports/' + reportId).subscribe(data => {
       this.ngOnInit();
     });
   }
-
 }
