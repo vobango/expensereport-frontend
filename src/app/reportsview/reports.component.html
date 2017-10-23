@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let report of reports">
+    <tr *ngFor="let report of reports" (click)="view(report.reportId)" style="cursor: pointer;">
       <td style="text-align: center"><b>{{ report.reportId}}</b></td>
       <td style="text-align: center">{{ report.employee}}</td>
       <td style="text-align: center">{{ report.startDate | date:'yMd'}}</td>
