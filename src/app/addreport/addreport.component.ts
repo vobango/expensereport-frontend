@@ -78,6 +78,7 @@ export class AddreportComponent implements OnInit {
     this.update(i);
   }
 
+  // Update document currency
   newCurrency(event, i) {
     const doc = this.rForm.controls['documents'].value[i];
     doc.currency = this.currencies.filter(function(cur) {
